@@ -32,6 +32,7 @@ OQS_API const char *OQS_SIG_alg_identifier(size_t i) {
 		OQS_SIG_alg_sphincs_shake_192s_simple,
 		OQS_SIG_alg_sphincs_shake_256f_simple,
 		OQS_SIG_alg_sphincs_shake_256s_simple,
+    OQS_SIG_alg_KAZ_SIGN,
 		///// OQS_COPY_FROM_UPSTREAM_FRAGMENT_ALG_IDENTIFIER_END
 	};
 	if (i >= OQS_SIG_algs_length) {
@@ -153,6 +154,13 @@ OQS_API int OQS_SIG_alg_is_enabled(const char *method_name) {
 #else
 		return 0;
 #endif
+	
+  } else if (0 == strcasecmp(method_name, OQS_SIG_alg_KAZ_SIGN)) {
+#ifdef OQS_ENABLE_SIG_KAZ_SIGN
+		return 1;
+#else
+		return 0;
+#endif
 		///// OQS_COPY_FROM_UPSTREAM_FRAGMENT_ENABLED_CASE_END
 	} else {
 		return 0;
@@ -264,6 +272,13 @@ OQS_API OQS_SIG *OQS_SIG_new(const char *method_name) {
 	} else if (0 == strcasecmp(method_name, OQS_SIG_alg_sphincs_shake_256s_simple)) {
 #ifdef OQS_ENABLE_SIG_sphincs_shake_256s_simple
 		return OQS_SIG_sphincs_shake_256s_simple_new();
+#else
+		return NULL;
+#endif
+
+	} else if (0 == strcasecmp(method_name, OQS_SIG_alg_KAZ_SIGN)) {
+#ifdef OQS_ENABLE_SIG_KAZ_SIGN
+		return OQS_SIG_KAZ_SIGN_new();
 #else
 		return NULL;
 #endif
