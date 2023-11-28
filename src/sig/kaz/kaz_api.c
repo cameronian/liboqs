@@ -404,6 +404,7 @@ int KAZ_DS_VERIFICATION(unsigned char *signature,
 
     if(mpz_cmp_ui(w1, 0)==0){
         //__android_log_print(ANDROID_LOG_WARN, "FILTER 1", "%s", "SANGKUT");
+        printf("Stage 1 \n");
         return -4; //REJECT SIGNATURE
     }
 
@@ -420,6 +421,7 @@ int KAZ_DS_VERIFICATION(unsigned char *signature,
 
     if(mpz_cmp_ui(w3, 0)==0){
         //__android_log_print(ANDROID_LOG_WARN, "FILTER 2", "%s", "SANGKUT");
+        printf("Stage 2 \n");
         return -4; //REJECT SIGNATURE
     }
 
@@ -439,6 +441,7 @@ int KAZ_DS_VERIFICATION(unsigned char *signature,
 
     if(mpz_cmp_ui(w6, 0)!=0){
         //__android_log_print(ANDROID_LOG_WARN, "FILTER 3", "%s", "SANGKUT");
+        printf("Stage 3 \n");
         return -4; //REJECT SIGNATURE
     }
 
@@ -474,6 +477,7 @@ int KAZ_DS_VERIFICATION(unsigned char *signature,
 
     if(mpz_cmp_ui(w9, 0)!=0){
         //__android_log_print(ANDROID_LOG_WARN, "FILTER 4", "%s", "SANGKUT");
+        printf("Stage 4 \n");
         return -4; //REJECT SIGNATURE
     }
 
@@ -502,6 +506,7 @@ int KAZ_DS_VERIFICATION(unsigned char *signature,
         return 0;
     }
 
+        printf("Stage 5 \n");
     return -4;
 }
 

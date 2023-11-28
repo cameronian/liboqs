@@ -45,9 +45,12 @@ extern int KAZ_DS_VERIFICATION(unsigned char *signature,
 OQS_API OQS_STATUS OQS_SIG_KAZ_SIGN_keypair(uint8_t *public_key, uint8_t *secret_key) {
   
   KAZ_DS_KeyGen(public_key, secret_key);
-  
-  if(sizeof(public_key)!=0 || sizeof(secret_key)!=0) return 0;
-  else return -4;
+
+  if(public_key != NULL && secret_key != NULL) 
+  //if(sizeof(public_key)!=0 && sizeof(secret_key)!=0) 
+    return 0;
+  else 
+    return -4;
 
 }
 
@@ -55,6 +58,8 @@ OQS_API OQS_STATUS OQS_SIG_KAZ_SIGN_sign(uint8_t *signature, size_t *signature_l
 
   int status = KAZ_DS_SIGNATURE(signature, signature_len, message, message_len, secret_key);
 
+  printf("KAZ Sign result : %d\n", status);
+  printf("KAZ Signing : #{%s}\n", message);
   if(*signature_len > message_len && status == 0)
     return 0;
   else
@@ -67,6 +72,8 @@ OQS_API OQS_STATUS OQS_SIG_KAZ_SIGN_verify(const uint8_t *message, size_t messag
 
   int status = KAZ_DS_VERIFICATION(signature, signature_len, message, message_len, public_key);
 
+  printf("KAZ Verify result : %d\n", status);
+  printf("KAZ Verfiying : #{%s}\n", message);
   if (status == 0)
     return 0;
   else
